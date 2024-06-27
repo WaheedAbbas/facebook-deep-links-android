@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.facebook_deep_links_android.ui.theme.FacebookdeeplinksandroidTheme
 import com.facebook.applinks.AppLinkData
 import com.facebook.applinks.AppLinkData.createFromActivity
+import android.content.Intent
 
 class MainActivity : ComponentActivity() {
 
@@ -38,13 +39,17 @@ class MainActivity : ComponentActivity() {
 
         // Check for deep links when activity is created
         checkDeepLinks()
+        // ATTENTION: This was auto-generated to handle app links.
+
     }
 
     private fun checkDeepLinks() {
         // Check if the app was opened from a deep link
-        val appLinkData: AppLinkData? = createFromActivity(this)
+        val appLinkIntent: Intent = intent
+        val appLinkAction: String? = appLinkIntent.action
+        val appLinkData: Uri? = appLinkIntent.data
 
-        if (appLinkData != null && appLinkData.targetUri != null) {
+        if (appLinkData != null) {
             // Handle deep link URL, extract parameters, and navigate to relevant content
             greetingText = "Android - launched via web deep links"
         } else {
